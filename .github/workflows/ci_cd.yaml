@@ -23,7 +23,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Flutter Setup
-      - uses: actions/cache@v2
+        uses: actions/cache@v2
         with:
           path: /opt/hostedtoolcache/flutter
           key: ${{ runner.OS }}-flutter-install-cache-${{ env.FLUTTER_VERSION }}
@@ -45,8 +45,7 @@ jobs:
         with:
           min_coverage: 0
        # Setup Ruby, Bundler, and Gemfile dependencies
-      - name: Setup Fastlane
-        uses: ruby/setup-ruby@8029ebd6e5bd8f4e0d6f7623ea76a01ec5b1010d
+      - uses: ruby/setup-ruby@8029ebd6e5bd8f4e0d6f7623ea76a01ec5b1010d
         with:
           ruby-version: "2.6"
           bundler-cache: true
