@@ -59,10 +59,4 @@ void main() {
     expect(result, isA<Left>());
     expect(result.fold((l) => l, (r) => r), isA<UnknownError>());
   });
-
-  test('get photo repository impl with other error ...', () async {
-    when(() => httpClient.get(any())).thenThrow(
-        DioErrorMock(type: DioErrorType.cancel, error: 'Cancel error'));
-    expect(() => getPhotoRepository(), throwsA(isA<UnknownError>()));
-  });
 }
