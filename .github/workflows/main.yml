@@ -21,6 +21,10 @@ env:
 
 jobs:
   flutter_test:
+    permissions:
+      id-token: write
+      contents: read
+      checks: write
     runs-on: macos-latest
     steps:
       - name: Flutter Setup
