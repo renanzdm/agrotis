@@ -7,9 +7,7 @@ on:
         description: "Fastlane lane to use (beta OR promote_to_production OR production)"
         required: true
         default: "deploy_firebase"
-  push:
-    branches:
-      - main
+        
 env:
   FLUTTER_VERSION: 3.0.0
   PLAY_STORE_CONFIG_JSON: ${{ secrets.PLAY_STORE_CONFIG_JSON }}
