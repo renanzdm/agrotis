@@ -23,7 +23,7 @@ platform :android do
 
   desc "Deploy to Firebase app distribution"
   lane :deploy_firebase do
-      sh "flutter build appbundle"
+      sh "flutter build apk"
       firebase_app_distribution(
       groups: "testers",
       release_notes: "Fixing bug in features",
