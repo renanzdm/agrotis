@@ -1,0 +1,57 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  desc "Runs all the tests"
+  lane :test do
+    gradle(task: "test")
+  end
+
+  desc "Deploy to Firebase app distribution"
+  lane :deploy_firebase do
+      firebase_app_distribution(
+      groups: "testers",
+      release_notes: "Fixing bug in features",
+      apk_path: "../build/app/outputs/flutter-apk/app-release.apk",
+      firebase_cli_path: "/usr/local/bin/firebase",
+      firebase_cli_token: "1//0hSuThp5yQdhuCgYIARAAGBESNwF-L9IrXKC_j1YwxMMNr6JghU3usuPtoNBwwehHhm_hxgX32SDKGsIl5x1nZKGittoiGy3BHxs",
+      app: "1:8695075690:android:ea446cadb7a32bfe5a4b13"
+      )
+  end
+   
+
+  desc "Submit a new beta build to Google Play"
+  lane :beta do
+    sh "flutter build appbundle -v --no-deferred-components"
+    upload_to_play_store(
+      track: 'beta',
+      aab: '../build/app/outputs/bundle/release/app-release.aab',
+      json_key_data: ENV['PLAY_STORE_CONFIG_JSON'],
+      )
+  end
+
+
+  desc "Submit a new production build to Google Play"
+  lane :production do
+    sh "flutter build appbundle -v --no-deferred-components"
+    upload_to_play_store(
+      track: 'production',
+      aab: '../build/app/outputs/bundle/release/app-release.aab',
+      json_key_data: ENV['PLAY_STORE_CONFIG_JSON'],
+    )
+  end
+end
