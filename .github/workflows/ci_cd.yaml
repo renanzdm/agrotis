@@ -1,23 +1,26 @@
-name: CI/CD
-
+name: Deploy to Play Store
 on:
+  # Enable manual run
   workflow_dispatch:
     inputs:
       lane:
         description: "Fastlane lane to use (beta OR promote_to_production OR production)"
         required: true
-        default: "deploy_firebase"
-        
+        default: "beta"
+  # Refs/tags push events to matching v*, i.e. v1.0, v20.15.10
+  push:
+    tags:
+      - "v*"
+
+# Declare default permissions as read only.
+permissions: read-all
+
 env:
   FLUTTER_VERSION: 3.0.0
   PLAY_STORE_CONFIG_JSON: ${{ secrets.PLAY_STORE_CONFIG_JSON }}
 
 jobs:
   flutter_test:
-    permissions:
-      id-token: write
-      contents: read
-      checks: write
     runs-on: macos-latest
     steps:
       - name: Flutter Setup
