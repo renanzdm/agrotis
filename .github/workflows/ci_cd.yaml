@@ -21,9 +21,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-         os: [macos-latest]
+         os: [ubuntu-latest]
          include:
-            - os: macos-latest
+            - os: ubuntu-latest
               flutter_path: /opt/hostedtoolcache/flutter
     permissions:
       id-token: write
@@ -75,7 +75,7 @@ jobs:
         run: bundle exec fastlane ${{ github.event.inputs.lane || 'deploy_firebase' }}
         env: 
             PLAY_STORE_CONFIG_JSON: ${{ secrets.PLAY_STORE_CONFIG_JSON }}
-        working-directory: /Users/runner/work/agrotis/agrotis
+        working-directory: android
 
 
 
