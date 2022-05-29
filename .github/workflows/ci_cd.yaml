@@ -15,16 +15,19 @@ on:
 env:
   FLUTTER_VERSION: 3.0.0
   PLAY_STORE_CONFIG_JSON: ${{ secrets.PLAY_STORE_CONFIG_JSON }}
+  java_version: "12.x"
 
 jobs:
   flutter_test:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-         os: [ubuntu-latest]
+         os: [ubuntu-latest, macos-latest]
          include:
-            - os: ubuntu-latest
-              flutter_path: /opt/hostedtoolcache/flutter
+          - os: ubuntu-latest
+            flutter_path: /opt/hostedtoolcache/flutter
+          - os: macos-latest
+            flutter_path: /Users/runner/hostedtoolcache/flutter
     permissions:
       id-token: write
       contents: read
@@ -35,7 +38,6 @@ jobs:
         with:
           path: ${{ matrix.flutter_path }}
           key: ${{ runner.os }}-flutter-install-cache-${{ env.FLUTTER_VERSION }}
-      - uses: actions/checkout@v3
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
@@ -52,6 +54,10 @@ jobs:
       - uses: VeryGoodOpenSource/very_good_coverage@v1.1.1
         with:
           min_coverage: 0
+      - name: Setup java
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ env.java_version }} 
        # Setup Ruby, Bundler, and Gemfile dependencies
       - uses: ruby/setup-ruby@8029ebd6e5bd8f4e0d6f7623ea76a01ec5b1010d
         with:
