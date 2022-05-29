@@ -21,7 +21,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-         os: macos-latest
+         os: [macos-latest]
          include:
             - os: macos-latest
               flutter_path: /opt/hostedtoolcache/flutter
