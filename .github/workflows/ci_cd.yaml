@@ -1,4 +1,4 @@
-name: Deploy to Play Store
+name: Deploy Firebase Distribuition
 on:
   # Enable manual run
   workflow_dispatch:
