@@ -12,8 +12,6 @@ on:
     tags:
       - "v*"
 
-
-
 env:
   FLUTTER_VERSION: 3.0.0
   PLAY_STORE_CONFIG_JSON: ${{ secrets.PLAY_STORE_CONFIG_JSON }}
